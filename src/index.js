@@ -36,11 +36,34 @@ async function createNewTask(form_event) {
     
 }
 
+
 // will send PUT req to backend (updateTaskStatus)
 // with task_id in request & request.body including status
-function changeTaskStatus(task_id, new_status) {
-    // placeholder log
-    console.log(`placeholder status update -> id ${task_id} changed to status ${new_status}`)
+async function changeTaskStatus(task_id, new_status) {
+    // send req.body as urlencoded form (//TODO revisit when refactoring to appJSON)
+    const urlEncodedData = new URLSearchParams();
+    urlEncodedData.append('status', new_status);
+
+    try {
+        const response = await fetch(`http://localhost:3000/tasks/${task_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: urlEncodedData.toString(),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            // rerender view
+            renderTaskList();
+        } else {
+            const error = await response.json();
+            console.error('Error updating task status:', error);
+        }
+    } catch (error) {
+        console.error('Network error:', error);
+    }
 }
 
 
