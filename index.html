@@ -33,25 +33,26 @@
             <form id="task-form">
               <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" required>
+                <input type="text" class="form-control" id="form_title" name="title" placeholder="Enter your task" required>
               </div>
         
               <div class="mb-3">
                 <label for="description" class="form-label">Description (optional)</label>
-                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                <textarea class="form-control" id="form_description" name="description" placeholder="Describe your task" rows="3"></textarea>
               </div>
         
               <div class="mb-3">
+                <!-- TODO change to dropdown options for status -->
                 <label for="status" class="form-label">Status</label>
-                <select class="form-select" id="status" name="status" required>
+                <select class="form-select" id="form_status" name="status" value="Pending" required>
                   <option value="pending">Pending</option>
                   <option value="solved">Solved</option>
                 </select>
               </div>
         
               <div class="mb-3">
-                <label for="due" class="form-label">Due Date/Time</label>
-                <input type="datetime-local" class="form-control" id="due" name="due" required>
+                <label for="due" class="form-label">Due Date</label>
+                <input type="date" class="form-control" id="form_due" name="due" required>
               </div>
         
               <button type="submit" class="btn btn-primary">Create Task</button>
