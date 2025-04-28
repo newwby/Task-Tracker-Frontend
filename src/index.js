@@ -45,9 +45,27 @@ function changeTaskStatus(task_id, new_status) {
 
 
 // will send DELETE req to backend (deleteTask) with task_id in request
-function deleteTask(task_id) {
-    // placeholder log
-    console.log(`placeholder delete task -> id ${task_id}`)
+async function deleteTask(task_id) {
+    
+    try {
+        const response = await fetch(`http://localhost:3000/tasks/${task_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+
+        if (response.ok) {
+            // rerender view
+            renderTaskList();
+        } else {
+            console.error('Error deleting task:', response.statusText);
+        }
+    
+    } catch (error) {
+        console.error('Network error:', error);
+    }
+
 }
 
 
