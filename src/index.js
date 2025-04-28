@@ -2,6 +2,7 @@
 
 // will send POST req to backend (insertTask) with all args in request.body
 function createNewTask(form_event) {
+    // TODO add form validation
     form_event.preventDefault();
     const formData = new FormData(form_event.target)
     const taskData = {
@@ -10,11 +11,8 @@ function createNewTask(form_event) {
         task_status: formData.get('status'),
         task_due_date: formData.get('due')
       };
-    // let task_title, task_description, task_due_date
-    // let new_task_status = "Pending"
-    // placeholder log
-    console.log(`placeholder create new task -> ${taskData["task_title"]}, is ${taskData["task_status"]} due ${taskData["task_due_date"]} (${taskData["task_description"]})`)
-    // TODO clear form
+    let task_form = document.getElementById("task-form")
+    task_form.reset()
 }
 
 // will send PUT req to backend (updateTaskStatus)
@@ -44,14 +42,8 @@ function renderTaskList() {
     fetch('http://localhost:3000/tasks')
     .then(response => response.json())
     .then(data => {
-        console.log('Fetched data:', data);
-        console.log('Type of data:', typeof data);
-        console.log('Is Array:', Array.isArray(data));
-        console.log("successful fetch!")
-        console.log('Tasks:', data);
         // response data has data key containing actual task
         (data.data || []).forEach(task => {
-            console.log(`task -> ${task}`)
             renderTaskCard(
                 task.id,
                 task.title,
@@ -64,14 +56,6 @@ function renderTaskList() {
     .catch(error => {
       console.error('Error fetching tasks:', error);
     });
-
-    // // dummy value included to call renderTaskCard at least once
-    // let all_tasks = ["tasks_are_not_strings"]
-    // for (let i = 0; i < all_tasks.length; i++) {
-    //     renderTaskCard()
-    // }
-    // placeholder log
-    console.log(`placeholder call to render task list - no behaviour currently`)
 }
 
 
@@ -85,17 +69,10 @@ function renderTaskCard(
 ) {
     // parent for all tasks
     let taskColumn = document.getElementById("task-column")
-    console.log(`placeholder log - adding card to taskColumn @ ${taskColumn}`)
-    
-    // dummy values for testing
-    // let task_id = -1
-    // let task_title = "Test Title"
-    // let task_description = "test desc..."
-    // let task_status = "test status"
-    // let task_due = "2025-05-01 14:01"
 
     let card_container = document.createElement("div");
     card_container.className = "card";
+    // TODO change to dropdown options for status
     card_container.innerHTML = `
     <div class="card-body">
         <h5 class="card-title">${task_title}</h5>
