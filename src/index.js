@@ -55,20 +55,39 @@ function renderTaskCard() {
     // parent for all tasks
     let taskColumn = document.getElementById("task-column")
     console.log(`placeholder log - adding card to taskColumn @ ${taskColumn}`)
+    
+    let task_id = -1
+    let task_title = "Test Title"
+    let task_description = "test desc..."
+    let task_status = "test status"
+    let task_due = "2025-05-01 14:01"
+
+    let card_container = document.createElement("div");
+    card_container.className = "card";
+    card_container.innerHTML = `
+    <div class="card-body">
+        <h5 class="card-title">${task_title}</h5>
+        <p class="card-text">${task_description}</p>
+        <p><strong>Status:</strong> ${task_status}</p>
+        <p><strong>Due:</strong> ${task_due}</p>
+        <button class="btn btn-success btn-sm">Mark Solved</button>
+        <button class="btn btn-danger btn-sm">Delete Task</button>
+    </div>`;
+
+    let card_body = card_container.querySelector(".card-body");
+    let card_update_status_button = card_body.children[4];
+    let card_delete_task_button = card_body.children[5];
+    
+    card_update_status_button.addEventListener("click", () => {
+        changeTaskStatus(task_id, "Solved")
+    })
+    card_delete_task_button.addEventListener("click", () => {
+        deleteTask(task_id)
+    })
+
+    taskColumn.appendChild(card_container)
 }
-// <!-- Sample task card to be injected into task-column-->
-// <!--
-// <div class="card">
-//   <div class="card-body">
-//     <h5 class="card-title">Task Title</h5>
-//     <p class="card-text">Optional description...</p>
-//     <p><strong>Status:</strong> Pending</p>
-//     <p><strong>Due:</strong> 2025-05-01 14:00</p>
-//     <button class="btn btn-success btn-sm">Mark Solved</button>
-//     <button class="btn btn-danger btn-sm">Delete Task</button>
-//   </div>
-// </div>
-// -->
+
 
 // func to show the create task form (and the button to flip back)
 function showCreateTaskForm() {
