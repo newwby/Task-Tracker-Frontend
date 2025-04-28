@@ -32,16 +32,18 @@ function deleteTask(task_id) {
 
 // called when showTaskList is called and on document ready
 // will send GET req to backend (fetchAllTasks)
-function renderTaskList() {
+async function renderTaskList() {
     // clear the taskColumn
     let taskColumn = document.getElementById("task-column")
     while (taskColumn.firstChild) {
         taskColumn.removeChild(taskColumn.lastChild)
     }
 
-    fetch('http://localhost:3000/tasks')
-    .then(response => response.json())
-    .then(data => {
+    try {
+        
+        const response = await fetch('http://localhost:3000/tasks');
+        const data = await response.json();
+        
         // response data has data key containing actual task
         (data.data || []).forEach(task => {
             renderTaskCard(
@@ -52,10 +54,11 @@ function renderTaskList() {
                 task.due_date,
             )
         })
-    })
-    .catch(error => {
-      console.error('Error fetching tasks:', error);
-    });
+
+    } catch (error) {
+        console.error(`Error rendering tasks: ${error}`)
+    }
+
 }
 
 
