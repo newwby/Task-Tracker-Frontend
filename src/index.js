@@ -40,27 +40,59 @@ function renderTaskList() {
     while (taskColumn.firstChild) {
         taskColumn.removeChild(taskColumn.lastChild)
     }
-    // dummy value included to call renderTaskCard at least once
-    let all_tasks = ["tasks_are_not_strings"]
-    for (let i = 0; i < all_tasks.length; i++) {
-        renderTaskCard()
-    }
+
+    fetch('http://localhost:3000/tasks')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Fetched data:', data);
+        console.log('Type of data:', typeof data);
+        console.log('Is Array:', Array.isArray(data));
+        console.log("successful fetch!")
+        console.log('Tasks:', data);
+        // response data has data key containing actual task
+        (data.data || []).forEach(task => {
+            console.log(`task -> ${task}`)
+            renderTaskCard(
+                task.id,
+                task.title,
+                task.description,
+                task.status,
+                task.due_date,
+            )
+        })
+    })
+    .catch(error => {
+      console.error('Error fetching tasks:', error);
+    });
+
+    // // dummy value included to call renderTaskCard at least once
+    // let all_tasks = ["tasks_are_not_strings"]
+    // for (let i = 0; i < all_tasks.length; i++) {
+    //     renderTaskCard()
+    // }
     // placeholder log
     console.log(`placeholder call to render task list - no behaviour currently`)
 }
 
 
 // TODO implement pagination
-function renderTaskCard() {
+function renderTaskCard(
+    task_id,
+    task_title,
+    task_description,
+    task_status,
+    task_due,
+) {
     // parent for all tasks
     let taskColumn = document.getElementById("task-column")
     console.log(`placeholder log - adding card to taskColumn @ ${taskColumn}`)
     
-    let task_id = -1
-    let task_title = "Test Title"
-    let task_description = "test desc..."
-    let task_status = "test status"
-    let task_due = "2025-05-01 14:01"
+    // dummy values for testing
+    // let task_id = -1
+    // let task_title = "Test Title"
+    // let task_description = "test desc..."
+    // let task_status = "test status"
+    // let task_due = "2025-05-01 14:01"
 
     let card_container = document.createElement("div");
     card_container.className = "card";
