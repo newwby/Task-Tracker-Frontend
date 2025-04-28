@@ -3,23 +3,28 @@
 <head>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="src\index.js"></script>
 </head>
-<body class="p-3">
-
-  <div class="container">
-    <button class="btn btn-primary mt-1 mb-3">Create New Task</button>
-    
-    <h1 class="mb-4">Task List</h1>
-
-    <div id="task-list" class="row g-3">
-      <!-- Tasks will be injected here -->
-      <div id="task-column" class="col-12">
-      </div>
-    </div>
-  </div>
-
-</body>
+    <body class="p-3">
+        <div class="container">
+            <!-- Create task button at top of page -->
+            <button id="createTaskButton" class="btn btn-primary mt-1 mb-3">
+                Create New Task
+            </button>
+            
+            <h1 class="mb-4">Task List</h1>
+            <div id="task-list" class="row g-3">
+                <div id="task-column" class="col-12">
+                    <!-- Tasks injected here -->
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+    document.getElementById('createTaskButton').addEventListener('click', onClickPlaceholder);
+    </script>
 </html>
+
 
 <!-- Sample task card to be injected into task-column-->
 <!--
